@@ -82,70 +82,100 @@ import './App.css'
 //     return <ul>{listItem}</ul>;
 // }
 // export default App;
-import People from './components/data';
+// 
 
-function App() {
+//see Premium user name and badge also see unpremium name 
 
-  const chemists = People.filter(
-    person => person.profession === 'chemist'
-  );
+// function UserCard({name,isPremium}){
+//   return(
+//     <div className="card">
+//       <h2> { name }</h2>
+//       {isPremium && <p> 🌟 Premium user</p>}
+//     </div>
+//   );
+// }
+// function App(){
+//   return(
+//     <>
+//     <UserCard 
+//     name="Abid Hasan"
+//     isPremium={true}
+//     />
+//     <UserCard 
+//     name="Karim"
+//     isPremium={false}
+//     />
 
-  const others = People.filter(
-    person => person.profession !== 'chemist'
-  );
+//     </>
+//   );
+// }
+// export default App;
 
-  return (
+// just only see premium user.
+// function UserCard({name,isPremium}){
+//   return(
+//    <>
+//    { isPremium && <div>
+//     <h2> { name }</h2>
+//     <p> 🌟 Premium User </p>
+//    </div>
 
-    <>
+//    }
+//    </>
+//   );
+// }
+// function App(){
+//   return(
+//     <>
+//     <UserCard 
+//     name="Abid Hasan"
+//     isPremium={true}
+//     />
+//     <UserCard 
+//     name="Karim"
+//     isPremium={false}
+//     />
 
-      <h1>Chemists</h1>
+//     </>
+//   );
+// }
+// export default App;
 
-      <ul>
-        {chemists.map(person =>
 
-          <li key={person.id}>
+function ProfileCard({isLoading,name,profession}){
+  return(
+    <div className="card">
+      {isLoading ?  (
+        <div>
+          <p>Loading nam .....</p>
+          <p> Loading Profession ....</p>
+          </div>
+      ) :(
+        <div>
+          <h2> {name }</h2>
+          <p> { profession }</p>
+          </div>
+      )
+    }
+        
+    </div>
+     );
+  }
+ 
+  function App(){
+    return(
+      <>
+      <ProfileCard 
+      isLoading={true}
+      />
+      <ProfileCard 
+      name = "Abid Hasan"
+      profession="Backend Developer"
+      isLoading={false}
+      />
 
-            <img
-              src={person.image}
-              alt={person.name}
-              width="150"
-            />
+      </>
+    )
 
-            <p>
-              <b>{person.name}</b>
-              {' ' + person.profession + ' '}
-              known for {person.accomplishment}
-            </p>
-
-          </li>
-        )}
-      </ul>
-
-      <h1>Everyone Else</h1>
-
-      <ul>
-        {others.map(person =>
-
-          <li key={person.id}>
-
-            <img
-              src={person.image}
-              alt={person.name}
-              width="150"
-            />
-
-            <p>
-              <b>{person.name}</b>
-              {' ' + person.profession + ' '}
-              known for {person.accomplishment}
-            </p>
-
-          </li>
-        )}
-      </ul>
-
-    </>
-  );
-}
-
-export default App;
+  }
+  export default App;
