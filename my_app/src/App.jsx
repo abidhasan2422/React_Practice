@@ -1,4 +1,4 @@
-import { useState } from 'react'
+
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import Card from './components/Card'
@@ -142,40 +142,96 @@ import './App.css'
 // export default App;
 
 
-function ProfileCard({isLoading,name,profession}){
-  return(
-    <div className="card">
-      {isLoading ?  (
-        <div>
-          <p>Loading nam .....</p>
-          <p> Loading Profession ....</p>
-          </div>
-      ) :(
-        <div>
-          <h2> {name }</h2>
-          <p> { profession }</p>
-          </div>
-      )
-    }
+// function ProfileCard({isLoading,name,profession}){
+//   return(
+//     <div className="card">
+//       {isLoading ?  (
+//         <div>
+//           <p>Loading nam .....</p>
+//           <p> Loading Profession ....</p>
+//           </div>
+//       ) :(
+//         <div>
+//           <h2> {name }</h2>
+//           <p> { profession }</p>
+//           </div>
+//       )
+//     }
         
-    </div>
-     );
-  }
+//     </div>
+//      );
+//   }
  
-  function App(){
-    return(
-      <>
-      <ProfileCard 
-      isLoading={true}
-      />
-      <ProfileCard 
-      name = "Abid Hasan"
-      profession="Backend Developer"
-      isLoading={false}
-      />
+//   function App(){
+//     return(
+//       <>
+//       <ProfileCard 
+//       isLoading={true}
+//       />
+//       <ProfileCard 
+//       name = "Abid Hasan"
+//       profession="Backend Developer"
+//       isLoading={false}
+//       />
 
-      </>
-    )
+//       </>
+//     )
 
+//   }
+//   export default App;
+
+import { useState } from 'react';
+
+function Counter() {
+
+  const [count, setCount] = useState(0);
+
+  function increment() {
+    setCount(count + 1);
   }
-  export default App;
+
+  function decrement() {
+    setCount(count - 1);
+  }
+
+  return (
+
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: "20px",
+        height: "100vh"
+      }}
+    >
+
+      <button
+        onClick={increment}
+        style={{
+          width: "100px",
+          height: "40px",
+          cursor: "pointer"
+        }}
+      >
+        +
+      </button>
+
+      <h1>{count}</h1>
+
+      <button
+        onClick={decrement}
+        style={{
+          width: "100px",
+          height: "40px",
+          cursor: "pointer"
+        }}
+      >
+        -
+      </button>
+
+    </div>
+  );
+}
+
+export default Counter;
