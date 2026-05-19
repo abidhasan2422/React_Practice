@@ -180,58 +180,117 @@ import './App.css'
 //   }
 //   export default App;
 
-import { useState } from 'react';
+// import { useState } from 'react';
 
-function Counter() {
+// function Counter() {
 
-  const [count, setCount] = useState(0);
+//   const [count, setCount] = useState(0);
 
-  function increment() {
-    setCount(count + 1);
-  }
+//   function increment() {
+//     setCount(count + 1);
+//   }
 
-  function decrement() {
-    setCount(count - 1);
-  }
+//   function decrement() {
+//     setCount(count - 1);
+//   }
+
+//   return (
+
+//     <div
+//       style={{
+//         display: "flex",
+//         justifyContent: "center",
+//         alignItems: "center",
+//         gap: "20px",
+//         height: "100vh"
+//       }}
+//     >
+
+//       <button
+//         onClick={increment}
+//         style={{
+//           width: "100px",
+//           height: "40px",
+//           cursor: "pointer"
+//         }}
+//       >
+//         +
+//       </button>
+
+//       <h1>{count}</h1>
+
+//       <button
+//         onClick={decrement}
+//         style={{
+//           width: "100px",
+//           height: "40px",
+//           cursor: "pointer"
+//         }}
+//       >
+//         -
+//       </button>
+
+//     </div>
+//   );
+// }
+
+// export default Counter;
+import { useState } from "react";
+
+function ColorPicker() {
+
+  const colors = [
+    "red",
+    "blue",
+    "green",
+    "orange",
+    "purple"
+  ];
+
+  const [bgColor, setBgColor] = useState("white");
+
+  const [hoverColor, setHoverColor] = useState("");
 
   return (
 
     <div
       style={{
+        backgroundColor: hoverColor || bgColor,
+        height: "100vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        gap: "20px",
-        height: "100vh"
+        gap: "20px"
       }}
     >
 
-      <button
-        onClick={increment}
-        style={{
-          width: "100px",
-          height: "40px",
-          cursor: "pointer"
-        }}
-      >
-        +
-      </button>
+      {colors.map((color, index) => (
 
-      <h1>{count}</h1>
+        <div
+          key={index}
 
-      <button
-        onClick={decrement}
-        style={{
-          width: "100px",
-          height: "40px",
-          cursor: "pointer"
-        }}
-      >
-        -
-      </button>
+          onClick={() => setBgColor(color)}
+
+          onMouseEnter={() => setHoverColor(color)}
+
+          onMouseLeave={() => setHoverColor("")}
+
+          style={{
+            width: "60px",
+            height: "60px",
+            backgroundColor: color,
+            cursor: "pointer",
+            borderRadius: "50%",
+            border: "2px solid black"
+          }}
+        >
+
+        </div>
+
+      ))}
 
     </div>
   );
 }
 
-export default Counter;
+export default ColorPicker;
