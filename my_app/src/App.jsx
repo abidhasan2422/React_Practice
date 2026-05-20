@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import Card from './components/Card'
 import './App.css'
+import { use, useState } from 'react'
 
 // function App(){
 //   const name = "Abid";
@@ -235,62 +236,152 @@ import './App.css'
 // }
 
 // export default Counter;
-import { useState } from "react";
+// import { useState } from "react";
 
-function ColorPicker() {
+// function ColorPicker() {
 
-  const colors = [
-    "red",
-    "blue",
-    "green",
-    "orange",
-    "purple"
-  ];
+//   const colors = [
+//     "red",
+//     "blue",
+//     "green",
+//     "orange",
+//     "purple"
+//   ];
 
-  const [bgColor, setBgColor] = useState("white");
+//   const [bgColor, setBgColor] = useState("white");
 
-  const [hoverColor, setHoverColor] = useState("");
+//   const [hoverColor, setHoverColor] = useState("");
 
-  return (
+//   return (
 
-    <div
-      style={{
-        backgroundColor: hoverColor || bgColor,
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: "20px"
-      }}
+//     <div
+//       style={{
+//         backgroundColor: hoverColor || bgColor,
+//         height: "100vh",
+//         display: "flex",
+//         justifyContent: "center",
+//         alignItems: "center",
+//         gap: "20px"
+//       }}
+//     >
+
+//       {colors.map((color, index) => (
+
+//         <div
+//           key={index}
+
+//           onClick={() => setBgColor(color)}
+
+//           onMouseEnter={() => setHoverColor(color)}
+
+//           onMouseLeave={() => setHoverColor("")}
+
+//           style={{
+//             width: "60px",
+//             height: "60px",
+//             backgroundColor: color,
+//             cursor: "pointer",
+//             borderRadius: "50%",
+//             border: "2px solid black"
+//           }}
+//         >
+
+//         </div>
+
+//       ))}
+
+//     </div>
+//   );
+// }
+
+// export default ColorPicker;
+
+function SignUp(){
+  const [name,setName] =useState("")
+  const [email,setEmail] =useState("")
+  const [password,setPassword] =useState("")
+  const[error,setError]=useState("")
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  function handleBlur(){
+    if(!email.includes("@"))
+      setError("Invalid Email");
+    else{
+      setError("");
+    }
+ 
+  }
+  function handleSubmit(){
+  setName("")
+  setEmail("")
+  setPassword("")
+  setConfirmPassword("")
+  }
+  return(
+    <div className="outer-div"
+       style={{
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  }}
     >
+      <div
+      style={{
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "320px",
+    padding: "30px",
+    gap: "15px",
+    backgroundColor: "#ffffff",
+    borderRadius: "12px",
+    boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+  }}
+    >
+      <p> SignUp Form </p>
+  
+      <input type="text"
+    
+       value={name}
+       onChange={(e)=>setName(e.target.value)}
+  
+      placeholder='Enter Your Name'
+      /> 
+      <input type="email"
+      value={email}
+      onChange={(e)=> setEmail(e.target.value)}
+      onBlur={handleBlur}
+      placeholder='Enter Your Email'
+      />
+          {error && <p>{error}</p>}
+      <input type="password"
+       value={password}
+       onChange={(e)=>setPassword(e.target.value)}
+      placeholder='Enter Your password'
+      />
+      <input type="password"
+       value={confirmPassword}
+       onChange={(e)=> setConfirmPassword(e.target.value)}
+       placeholder='Confirm Password'
+      />
+      {
+          confirmPassword &&
+          password !== confirmPassword &&
+          <p>Passwords do not match</p>
+        }
+    <button type="submit" onClick={handleSubmit}> Submit</button>
+    <h2>Live Preview</h2>
 
-      {colors.map((color, index) => (
+      <p>Name: {name}</p>
 
-        <div
-          key={index}
+      <p>Email: {email}</p>
 
-          onClick={() => setBgColor(color)}
+      <p>Password: {password}</p>
 
-          onMouseEnter={() => setHoverColor(color)}
-
-          onMouseLeave={() => setHoverColor("")}
-
-          style={{
-            width: "60px",
-            height: "60px",
-            backgroundColor: color,
-            cursor: "pointer",
-            borderRadius: "50%",
-            border: "2px solid black"
-          }}
-        >
-
-        </div>
-
-      ))}
-
-    </div>
-  );
+      </div>
+      </div>
+  )
 }
-
-export default ColorPicker;
+export default SignUp;
