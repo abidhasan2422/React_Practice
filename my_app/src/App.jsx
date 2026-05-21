@@ -296,92 +296,268 @@ import { use, useState } from 'react'
 
 // export default ColorPicker;
 
-function SignUp(){
-  const [name,setName] =useState("")
-  const [email,setEmail] =useState("")
-  const [password,setPassword] =useState("")
-  const[error,setError]=useState("")
-  const [confirmPassword, setConfirmPassword] = useState("");
+// function SignUp(){
+//   const [name,setName] =useState("")
+//   const [email,setEmail] =useState("")
+//   const [password,setPassword] =useState("")
+//   const[error,setError]=useState("")
+//   const [confirmPassword, setConfirmPassword] = useState("");
 
-  function handleBlur(){
-    if(!email.includes("@"))
-      setError("Invalid Email");
-    else{
-      setError("");
-    }
+//   function handleBlur(){
+//     if(!email.includes("@"))
+//       setError("Invalid Email");
+//     else{
+//       setError("");
+//     }
  
-  }
-  function handleSubmit(){
-  setName("")
-  setEmail("")
-  setPassword("")
-  setConfirmPassword("")
-  }
-  return(
-    <div className="outer-div"
-       style={{
-    height: "100vh",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center"
-  }}
-    >
-      <div
-      style={{
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "320px",
-    padding: "30px",
-    gap: "15px",
-    backgroundColor: "#ffffff",
-    borderRadius: "12px",
-    boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
-  }}
-    >
-      <p> SignUp Form </p>
+//   }
+//   function handleSubmit(){
+//   setName("")
+//   setEmail("")
+//   setPassword("")
+//   setConfirmPassword("")
+//   }
+//   return(
+//     <div className="outer-div"
+//        style={{
+//     height: "100vh",
+//     display: "flex",
+//     justifyContent: "center",
+//     alignItems: "center"
+//   }}
+//     >
+//       <div
+//       style={{
+//     display: "flex",
+//     flexDirection: "column",
+//     justifyContent: "center",
+//     alignItems: "center",
+//     width: "320px",
+//     padding: "30px",
+//     gap: "15px",
+//     backgroundColor: "#ffffff",
+//     borderRadius: "12px",
+//     boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+//   }}
+//     >
+//       <p> SignUp Form </p>
   
-      <input type="text"
+//       <input type="text"
     
-       value={name}
-       onChange={(e)=>setName(e.target.value)}
+//        value={name}
+//        onChange={(e)=>setName(e.target.value)}
   
-      placeholder='Enter Your Name'
-      /> 
-      <input type="email"
-      value={email}
-      onChange={(e)=> setEmail(e.target.value)}
-      onBlur={handleBlur}
-      placeholder='Enter Your Email'
-      />
-          {error && <p>{error}</p>}
-      <input type="password"
-       value={password}
-       onChange={(e)=>setPassword(e.target.value)}
-      placeholder='Enter Your password'
-      />
-      <input type="password"
-       value={confirmPassword}
-       onChange={(e)=> setConfirmPassword(e.target.value)}
-       placeholder='Confirm Password'
-      />
-      {
-          confirmPassword &&
-          password !== confirmPassword &&
-          <p>Passwords do not match</p>
+//       placeholder='Enter Your Name'
+//       /> 
+//       <input type="email"
+//       value={email}
+//       onChange={(e)=> setEmail(e.target.value)}
+//       onBlur={handleBlur}
+//       placeholder='Enter Your Email'
+//       />
+//           {error && <p>{error}</p>}
+//       <input type="password"
+//        value={password}
+//        onChange={(e)=>setPassword(e.target.value)}
+//       placeholder='Enter Your password'
+//       />
+//       <input type="password"
+//        value={confirmPassword}
+//        onChange={(e)=> setConfirmPassword(e.target.value)}
+//        placeholder='Confirm Password'
+//       />
+//       {
+//           confirmPassword &&
+//           password !== confirmPassword &&
+//           <p>Passwords do not match</p>
+//         }
+//     <button type="submit" onClick={handleSubmit}> Submit</button>
+//     <h2>Live Preview</h2>
+
+//       <p>Name: {name}</p>
+
+//       <p>Email: {email}</p>
+
+//       <p>Password: {password}</p>
+
+//       </div>
+//       </div>
+//   )
+// }
+// export default SignUp;
+
+
+function NotesApp() {
+
+  const [note, setNote] = useState("");
+
+  const [notes, setNotes] = useState([]);
+
+  const [editingId, setEditingId] = useState(null);
+
+
+  function handleAddNote() {
+
+    if (note.trim() === "") {
+      return;
+    }
+
+    if (editingId !== null) {
+
+      const updatedNotes = notes.map((item) => {
+
+        if (item.id === editingId) {
+
+          return {
+            ...item,
+            text: note
+          };
         }
-    <button type="submit" onClick={handleSubmit}> Submit</button>
-    <h2>Live Preview</h2>
 
-      <p>Name: {name}</p>
+        return item;
+      });
 
-      <p>Email: {email}</p>
+      setNotes(updatedNotes);
 
-      <p>Password: {password}</p>
+      setEditingId(null);
+
+    } else {
+
+      const newNote = {
+        id: Date.now(),
+        text: note
+      };
+
+      setNotes([...notes, newNote]);
+    }
+
+    setNote("");
+  }
+
+
+  function handleDelete(id) {
+
+    const filteredNotes = notes.filter(
+      (item) => item.id !== id
+    );
+
+    setNotes(filteredNotes);
+  }
+
+
+  function handleEdit(id) {
+
+    const selectedNote = notes.find(
+      (item) => item.id === id
+    );
+
+    setNote(selectedNote.text);
+
+    setEditingId(id);
+  }
+
+
+  return (
+
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#f4f4f4"
+      }}
+    >
+
+      <div
+        style={{
+          width: "400px",
+          padding: "30px",
+          borderRadius: "12px",
+          backgroundColor: "white",
+          boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+          display: "flex",
+          flexDirection: "column",
+          gap: "15px"
+        }}
+      >
+
+        <h2>Notes App</h2>
+
+
+        <input
+          type="text"
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          placeholder="Enter your note"
+          style={{
+            padding: "10px"
+          }}
+        />
+
+
+        <button
+          onClick={handleAddNote}
+          style={{
+            padding: "10px",
+            cursor: "pointer"
+          }}
+        >
+
+          {editingId !== null ? "Update Note" : "Add Note"}
+
+        </button>
+
+
+        {
+          notes.map((item) => (
+
+            <div
+              key={item.id}
+              style={{
+                border: "1px solid #ddd",
+                padding: "10px",
+                borderRadius: "8px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center"
+              }}
+            >
+
+              <p>{item.text}</p>
+
+
+              <div
+                style={{
+                  display: "flex",
+                  gap: "10px"
+                }}
+              >
+
+                <button
+                  onClick={() => handleEdit(item.id)}
+                >
+                  Edit
+                </button>
+
+
+                <button
+                  onClick={() => handleDelete(item.id)}
+                >
+                  Delete
+                </button>
+
+              </div>
+
+            </div>
+
+          ))
+        }
 
       </div>
-      </div>
-  )
+
+    </div>
+  );
 }
-export default SignUp;
+
+export default NotesApp;
